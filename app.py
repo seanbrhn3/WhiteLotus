@@ -8,7 +8,7 @@ app = Flask(__name__)
 tracker = TaskTracker()
 
 
-client = MongoClient("mongodb+srv://root:" + urllib.parse.quote("Ab45305006@")+"@cluster0-8mszk.mongodb.net/test?retryWrites=true")
+client = MongoClient("mongodb+srv://root:" + urllib.parse.quote("<your password>")+"@cluster0-8mszk.mongodb.net/test?retryWrites=true")
 db = client.test
 
 

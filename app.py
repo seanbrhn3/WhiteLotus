@@ -8,7 +8,7 @@ app = Flask(__name__)
 tracker = TaskTracker()
 
 
-client = MongoClient("mongodb+srv://root:" + urllib.parse.quote("<your password>")+"@cluster0-8mszk.mongodb.net/test?retryWrites=true")
+client = MongoClient("mongodb+srv://root:" + urllib.parse.quote("Ab45305006@")+"@cluster0-8mszk.mongodb.net/test?retryWrites=true")
 db = client.test
 
 
@@ -16,15 +16,16 @@ db = client.test
 def index():
     if request.method == "POST":
         print(request.form)
-        if "complete" in request.form:
-            if request.form["complete"] == "deleteAll":
-                createCollection.delete_all()
-            elif  "Complete:" in request.form["complete"]:
-                fun = request.form["complete"].split(" ")
-                the_task = fun[1]
-                return redirect(url_for("completed",task=the_task))
-        if len(request.form["task"]) > 0:
-            db.tasks.insert({
+        if 'delete' in request.form:
+            print("reached?")
+            createCollection.delete_all()
+        elif  "complete" in request.form:
+            fun = request.form["complete"].split("Complete:")
+            the_task = fun[1]
+            createCollection.completed_task(the_task)
+            return redirect(url_for("completed",task=the_task))
+        elif "submit" in request.form:
+            db.tasks.insert_one({
                 "task": request.form['task'],
                 "date": datetime.datetime.now(),
                 "completed": False

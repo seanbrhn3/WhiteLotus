@@ -13,4 +13,20 @@ def delete_all():
     return "all values detroyed"
 
 def completed_task(task):
-    db.tasks.remove(db.tasks.find_one({'task':task}))
+    t = task[1:]
+    print(t)
+    db.tasks.remove({"task" : t})
+    return "{} has been completed".format(task)
+
+def all_tasks_test(task):
+    t = []
+    print(task)
+    for i in db.tasks.find():
+        if i == i['task']:
+            print("YAH WE GOT IT")
+        else:
+            print(i['task'])
+            print("BITCH IDK WHATS GOING ON")
+
+
+#print(all_tasks())
